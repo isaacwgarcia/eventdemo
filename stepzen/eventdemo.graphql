@@ -1,0 +1,90 @@
+type Form_field {
+  field: String
+  label: String
+  type: String
+}
+
+type Owner {
+  id: String
+  name: String
+  email: String
+  event_ids: [String]
+  """
+  Events that a person has been to.
+  """
+  events: [Event]
+    @materializer(
+      query: "event_list_by_id"
+      arguments: [{ name: "id", field: "event_ids" }]
+    )
+}
+
+type Owner_Events {
+  id: String
+  name: String
+  email: String
+  event_ids: [String]
+}
+
+type Event {
+  form_fields: [Form_field]
+  id: String
+  location: String
+  name: String
+  attendee_ids: [String]!
+  """
+  People that have attended an event.
+  """
+  attendees: [Attendee]
+    @materializer(
+      query: "person_list_by_id"
+      arguments: [{ name: "id", field: "attendee_ids" }]
+    )
+}
+
+type Attendee {
+  address: String
+  email: String
+  event_ids: [String]
+  id: String
+  name: String
+  phone: String
+  """
+  Events that a person has been to.
+  """
+  events: [Event]
+    @materializer(
+      query: "event_list_by_id"
+      arguments: [{ name: "id", field: "event_ids" }]
+    )
+}
+
+type Query {
+  """
+  Equivalent To GET /api/events/id
+  """
+  firebase_event_by_id(id: String!): Event
+    @rest(endpoint: "https://eventdemo.vercel.app/api/event/$id")
+
+  """
+  Equivalent To GET /api/person?email=$email
+  """
+  owner_by_email(email: String!): Owner
+    @rest(endpoint: "https://eventdemo.vercel.app/api/owner?email=$email")
+  """
+  Equivalent To GET /api/eventList?id=$id
+  """
+  event_list_by_id(id: [String]): [Event]
+    @rest(endpoint: "https://eventdemo.vercel.app/api/eventList?")
+  """
+  Equivalent To GET /api/personList?id=$id
+  """
+  person_list_by_id(id: [String]!): [Attendee]
+    @rest(endpoint: "https://eventdemo.vercel.app/api/attendeeList?")
+
+  """
+  Equivalent To GET /api/owner/id
+  """
+  rest_owner_events_by_email(email: String!): Owner_Events
+    @rest(endpoint: "https://eventdemo.vercel.app/api/owner?email=$email")
+}
