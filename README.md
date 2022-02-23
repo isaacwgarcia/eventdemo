@@ -1,8 +1,8 @@
-Organizing Owner, Events and Attendees with @materializer. Make Rest API endpoints integrations in minutes with Stepzen.
+Make Rest API endpoints integrations in minutes with StepZen.
 
 ## Getting Started
 
-DataModel 3 collections in Firestore.
+This project consists of three collections in Firestore.
 
 - Owner
 - Event
@@ -12,9 +12,15 @@ DataModel 3 collections in Firestore.
 
 Deploy this app in Vercel to expose the endpoints.
 
-## Configure Stepzen
+I recommend deploying by connecting your github repo to a vercel account, https://vercel.com/new.
 
-The REST endpoints are set up and ready to be linked within the StepZen schema.
+## Configure StepZen
+
+The REST endpoints are set up, https://eventdemo.vercel.app/api and ready to be linked in the StepZen schema.
+
+Sign up for a StepZen endpoint here, https://stepzen.com/signup.
+
+After getting started, deploy the stepzen endpoint in the `/stepzen` folder and include the url and api key in your `.env` file.
 
 ## Learn More
 
